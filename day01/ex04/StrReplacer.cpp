@@ -43,11 +43,16 @@ void	StrReplacer::replace(std::string const &filename, std::string const &find, 
 	while (!infile.eof())
 	{
 		std::getline(infile, buffer);
-		iFound = buffer.find(find);
-		if (iFound != std::string::npos)
+		while (true)
 		{
-			buffer.erase(iFound, find.length());
-			buffer.insert(iFound, replace);
+			iFound = buffer.find(find);
+			if (iFound != std::string::npos)
+			{
+				buffer.erase(iFound, find.length());
+				buffer.insert(iFound, replace);
+			}
+			else
+				break ;
 		}
 		outfile << buffer << std::endl;
 	}
